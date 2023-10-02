@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 void decimalToBinary(int num);
+void decimalToOctal(int num);
+void decimalToHexadecimal(int num);
 
 int main() {
     int selectConversion, selectBase, inputNum;
@@ -35,7 +39,6 @@ int main() {
                 printf("Resposta: ");
                 scanf("%d", &selectConversion);
             } while (selectConversion < 1 || selectConversion > 3);
-
 
 
             switch (selectConversion) {
@@ -101,10 +104,14 @@ int main() {
 
                 case 2:
                     printf("\nConversao selecionada: Decimal para octal\n");
+                    printf("O numero %d corresponde em octal a ", inputNum);
+                    decimalToOctal(inputNum);
                     break;
 
                 case 3:
                     printf("\nConversao selecionada: Decimal para hexadecimal\n");
+                    printf("O numero %d corresponde em hexadecimal a ", inputNum);
+                    decimalToHexadecimal(inputNum);
                     break;
                 default:
                     printf("Operacao invalida.");
@@ -156,12 +163,67 @@ void decimalToBinary(int num) {
 
     int binaryNum[32];
 
-    int i=0;
+    int i = 0;
     while (num > 0) {
         binaryNum[i++] = num % 2;
         num /= 2;
     }
 
-    for (int j = i-1; j >= 0; j--)
+    for (int j = i - 1; j >= 0; j--)
         printf("%d", binaryNum[j]);
 }
+
+void decimalToOctal(int num) {
+
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    int octalNum[32];
+
+    int i = 0;
+    while (num > 0) {
+        octalNum[i++] = num % 8;
+        num /= 8;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+        printf("%d", octalNum[j]);
+}
+
+void decimalToHexadecimal(int num) {
+
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    char hexaNum[32];
+
+    int i = 0, moduleOfSixteen = num % 16;
+    while (num > 0) {
+        if (moduleOfSixteen == 10) {
+            hexaNum[i++] = 'A';
+        } else if (moduleOfSixteen == 11) {
+            hexaNum[i++] = 'B';
+        } else  if (moduleOfSixteen == 12) {
+            hexaNum[i++] = 'C';
+        } else if (moduleOfSixteen == 13) {
+            hexaNum[i++] = 'D';
+        } else if (moduleOfSixteen == 14) {
+            hexaNum[i++] = 'E';
+        } else if (moduleOfSixteen == 15) {
+            hexaNum[i++] = 'F';
+        } else {
+            itoa(moduleOfSixteen, hexaNum + i, 10);
+            i += strlen(hexaNum + i);
+        }
+        num /= 16;
+        moduleOfSixteen = num % 16;
+    }
+
+    for (int j = i - 1; j >= 0; j--)
+        printf("%c", hexaNum[j]);
+}
+
