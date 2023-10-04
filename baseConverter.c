@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 void binaryToOctal(int num);
 
 void binaryToDecimal(int num);
+
+void binaryToHexadecimal(int num);
 
 void decimalToBinary(int num);
 
@@ -52,14 +55,18 @@ int main() {
                     printf("\nConversao selecionada: Binario para octal\n");
                     printf("O numero %d corresponde em octal a ", inputNum);
                     binaryToOctal(inputNum);
+
                     break;
                 case 2:
                     printf("\nConversao selecionada: Binario para decimal\n");
                     printf("O numero %d corresponde em decimal a ", inputNum);
                     binaryToDecimal(inputNum);
+
                     break;
                 case 3:
                     printf("\nConversao selecionada: Binario para hexadecimal\n");
+                    printf("O numero %d corresponde em hexadecimal a ", inputNum);
+                    binaryToHexadecimal(inputNum);
 
                     break;
                 default:
@@ -111,18 +118,21 @@ int main() {
                     printf("\nConversao selecionada: Decimal para binario\n\n");
                     printf("O numero %d corresponde em binario a ", inputNum);
                     decimalToBinary(inputNum);
+
                     break;
 
                 case 2:
                     printf("\nConversao selecionada: Decimal para octal\n");
                     printf("O numero %d corresponde em octal a ", inputNum);
                     decimalToOctal(inputNum);
+
                     break;
 
                 case 3:
                     printf("\nConversao selecionada: Decimal para hexadecimal\n");
                     printf("O numero %d corresponde em hexadecimal a ", inputNum);
                     decimalToHexadecimal(inputNum);
+
                     break;
                 default:
                     printf("Operacao invalida.");
@@ -171,11 +181,11 @@ void binaryToOctal(int num) {
         return;
     }
 
-    int octalNum[100], binaryDigit, weight, j = 0;
+    int octalNum[100], binaryDigit, weight, j = 0, i, k;
 
     while (num > 0) {
         weight = 1;
-        for (int i = 0; i < 3; i++) {
+        for (i = 0; i < 3; i++) {
             binaryDigit = num % 10;
             octalNum[j] += binaryDigit * weight;
             num /= 10;
@@ -183,8 +193,8 @@ void binaryToOctal(int num) {
         }
         j++;
     }
-    for (int k = j - 1; k >= 0; k--) {
-        printf("%o", octalNum[k]);
+    for (k = j - 1; k >= 0; k--) {
+        decimalToOctal(octalNum[k]);
     }
 }
 
@@ -207,6 +217,30 @@ void binaryToDecimal(int num) {
     printf("%d", decimalNum);
 }
 
+void binaryToHexadecimal(int num) {
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    int hexadecimalNum[100], binaryDigit, weight, j = 0;
+
+    while (num > 0) {
+        weight = 1;
+        int hexDigit = 0;
+        for (int i = 0; i < 4; i++) {
+            binaryDigit = num % 10;
+            hexDigit += binaryDigit * weight;
+            num /= 10;
+            weight *= 2;
+        }
+        hexadecimalNum[j] = hexDigit;
+        j++;
+    }
+    for (int k = j - 1; k >= 0; k--) {
+        decimalToHexadecimal(hexadecimalNum[k]);
+    }
+}
 
 void decimalToBinary(int num) {
 
@@ -230,7 +264,6 @@ void decimalToBinary(int num) {
 void decimalToOctal(int num) {
 
     if (num == 0) {
-        printf("0");
         return;
     }
 
@@ -277,7 +310,8 @@ void decimalToHexadecimal(int num) {
         moduleOfSixteen = num % 16;
     }
 
-    for (int j = i - 1; j >= 0; j--)
+    for (int j = i - 1; j >= 0; j--) {
         printf("%c", hexaNum[j]);
+    }
 }
 
