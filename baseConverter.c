@@ -19,166 +19,172 @@ void decimalToOctal(int num);
 void decimalToHexadecimal(int num);
 
 int main() {
-    int selectConversion, selectBase, inputNum;
-
-    printf("********************************\n");
-    printf("*      CONVERSAO DE BASES      *\n");
-    printf("********************************\n\n");
-
-    printf("1%c PASSO: Qual a base atual do numero que deseja converter?\n\n", 167);
-
-    printf("1. Binario\n");
-    printf("2. Octal\n");
-    printf("3. Decimal\n");
-    printf("4. Hexadecimal\n\n");
+    int selectConversion, selectBase, inputNum, answer = 1;
 
     do {
-        printf("Resposta: ");
-        scanf("%d", &selectBase);
-    } while (selectBase < 1 || selectBase > 4);
+        printf("\n********************************\n");
+        printf("*      CONVERSAO DE BASES      *\n");
+        printf("********************************\n\n");
 
-    printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
+        printf("1. Binario\n");
+        printf("2. Octal\n");
+        printf("3. Decimal\n");
+        printf("4. Hexadecimal\n\n");
 
-    do {
-        scanf("%d", &inputNum);
-        printf("\nPor favor, insira um numero valido para a base selecionada.\n\nResposta: ");
-    } while (!isValidNumber(inputNum, selectBase));
+        do {
+            printf("1%c PASSO: Qual a base atual do numero que deseja converter?\n\n", 167);
+            printf("Resposta: ");
+            scanf("%d", &selectBase);
+        } while (selectBase < 1 || selectBase > 4);
 
-    switch (selectBase) {
-        case 1:
-            printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
-            printf("1. Octal\n");
-            printf("2. Decimal\n");
-            printf("3. Hexadecimal\n\n");
+        do {
+            printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
+            scanf("%d", &inputNum);
+        } while (!isValidNumber(inputNum, selectBase));
 
-            do {
-                printf("Resposta: ");
-                scanf("%d", &selectConversion);
-            } while (selectConversion < 1 || selectConversion > 3);
+        switch (selectBase) {
+            case 1:
+                printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
+                printf("1. Octal\n");
+                printf("2. Decimal\n");
+                printf("3. Hexadecimal\n\n");
 
-            switch (selectConversion) {
-                case 1:
-                    printf("\nConversao selecionada: Binario para octal\n");
-                    printf("O numero %d corresponde em octal a ", inputNum);
-                    binaryToOctal(inputNum);
+                do {
+                    printf("Resposta: ");
+                    scanf("%d", &selectConversion);
+                } while (selectConversion < 1 || selectConversion > 3);
 
-                    break;
-                case 2:
-                    printf("\nConversao selecionada: Binario para decimal\n");
-                    printf("O numero %d corresponde em decimal a ", inputNum);
-                    binaryToDecimal(inputNum);
+                switch (selectConversion) {
+                    case 1:
+                        printf("\nConversao selecionada: Binario para octal\n");
+                        printf("O numero %d corresponde em octal a ", inputNum);
+                        binaryToOctal(inputNum);
 
-                    break;
-                case 3:
-                    printf("\nConversao selecionada: Binario para hexadecimal\n");
-                    printf("O numero %d corresponde em hexadecimal a ", inputNum);
-                    binaryToHexadecimal(inputNum);
+                        break;
+                    case 2:
+                        printf("\nConversao selecionada: Binario para decimal\n");
+                        printf("O numero %d corresponde em decimal a ", inputNum);
+                        binaryToDecimal(inputNum);
 
-                    break;
-                default:
-                    printf("Operacao invalida.");
-            }
+                        break;
+                    case 3:
+                        printf("\nConversao selecionada: Binario para hexadecimal\n");
+                        printf("O numero %d corresponde em hexadecimal a ", inputNum);
+                        binaryToHexadecimal(inputNum);
 
-            break;
+                        break;
+                    default:
+                        printf("Operacao invalida.");
+                }
 
-        case 2:
-            printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
-            printf("1. Binario\n");
-            printf("2. Decimal\n");
-            printf("3. Hexadecimal\n\n");
+                break;
 
-            do {
-                printf("Resposta: ");
-                scanf("%d", &selectConversion);
-            } while (selectConversion < 1 || selectConversion > 3);
+            case 2:
+                printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
+                printf("1. Binario\n");
+                printf("2. Decimal\n");
+                printf("3. Hexadecimal\n\n");
 
-            switch (selectConversion) {
-                case 1:
-                    printf("\nConversao selecionada: Octal para binario\n");
-                    break;
-                case 2:
-                    printf("\nConversao selecionada: Octal para decimal\n");
-                    break;
-                case 3:
-                    printf("\nConversao selecionada: Octal para hexadecimal\n");
-                    break;
-                default:
-                    printf("Operacao invalida.");
-            }
+                do {
+                    printf("Resposta: ");
+                    scanf("%d", &selectConversion);
+                } while (selectConversion < 1 || selectConversion > 3);
 
-            break;
+                switch (selectConversion) {
+                    case 1:
+                        printf("\nConversao selecionada: Octal para binario\n");
+                        break;
+                    case 2:
+                        printf("\nConversao selecionada: Octal para decimal\n");
+                        break;
+                    case 3:
+                        printf("\nConversao selecionada: Octal para hexadecimal\n");
+                        break;
+                    default:
+                        printf("Operacao invalida.");
+                }
 
-        case 3:
-            printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
-            printf("1. Binario\n");
-            printf("2. Octal\n");
-            printf("3. Hexadecimal\n\n");
+                break;
 
-            do {
-                printf("Resposta: ");
-                scanf("%d", &selectConversion);
-            } while (selectConversion < 1 || selectConversion > 3);
+            case 3:
+                printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
+                printf("1. Binario\n");
+                printf("2. Octal\n");
+                printf("3. Hexadecimal\n\n");
 
-            switch (selectConversion) {
-                case 1:
-                    printf("\nConversao selecionada: Decimal para binario\n\n");
-                    printf("O numero %d corresponde em binario a ", inputNum);
-                    decimalToBinary(inputNum);
+                do {
+                    printf("Resposta: ");
+                    scanf("%d", &selectConversion);
+                } while (selectConversion < 1 || selectConversion > 3);
 
-                    break;
+                switch (selectConversion) {
+                    case 1:
+                        printf("\nConversao selecionada: Decimal para binario\n\n");
+                        printf("O numero %d corresponde em binario a ", inputNum);
+                        decimalToBinary(inputNum);
 
-                case 2:
-                    printf("\nConversao selecionada: Decimal para octal\n");
-                    printf("O numero %d corresponde em octal a ", inputNum);
-                    decimalToOctal(inputNum);
+                        break;
 
-                    break;
+                    case 2:
+                        printf("\nConversao selecionada: Decimal para octal\n");
+                        printf("O numero %d corresponde em octal a ", inputNum);
+                        decimalToOctal(inputNum);
 
-                case 3:
-                    printf("\nConversao selecionada: Decimal para hexadecimal\n");
-                    printf("O numero %d corresponde em hexadecimal a ", inputNum);
-                    decimalToHexadecimal(inputNum);
+                        break;
 
-                    break;
-                default:
-                    printf("Operacao invalida.");
-            }
+                    case 3:
+                        printf("\nConversao selecionada: Decimal para hexadecimal\n");
+                        printf("O numero %d corresponde em hexadecimal a ", inputNum);
+                        decimalToHexadecimal(inputNum);
 
-            break;
+                        break;
+                    default:
+                        printf("Operacao invalida.");
+                }
 
-        case 4:
-            printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
-            printf("1. Binario\n");
-            printf("2. Octal\n");
-            printf("3. Decimal\n\n");
+                break;
 
-            do {
-                printf("Resposta: ");
-                scanf("%d", &selectConversion);
-            } while (selectConversion < 1 || selectConversion > 3);
+            case 4:
+                printf("\n3%c PASSO: Para qual base deseja converter o numero informado?\n\n", 167);
+                printf("1. Binario\n");
+                printf("2. Octal\n");
+                printf("3. Decimal\n\n");
 
-            switch (selectConversion) {
-                case 1:
-                    printf("\nConversao selecionada: Hexadecimal para binario\n");
-                    break;
+                do {
+                    printf("Resposta: ");
+                    scanf("%d", &selectConversion);
+                } while (selectConversion < 1 || selectConversion > 3);
 
-                case 2:
-                    printf("\nConversao selecionada: Hexadecimal para octal\n");
-                    break;
+                switch (selectConversion) {
+                    case 1:
+                        printf("\nConversao selecionada: Hexadecimal para binario\n");
+                        break;
 
-                case 3:
-                    printf("\nConversao selecionada: Hexadecimal para decimal\n");
-                    break;
+                    case 2:
+                        printf("\nConversao selecionada: Hexadecimal para octal\n");
+                        break;
 
-                default:
-                    printf("Operacao invalida.");
-            }
+                    case 3:
+                        printf("\nConversao selecionada: Hexadecimal para decimal\n");
+                        break;
 
-            break;
+                    default:
+                        printf("Operacao invalida.");
+                }
 
-        default:
-            printf("Operacao invalida.");
-    }
+                break;
+
+            default:
+                printf("Operacao invalida.");
+        }
+
+        do {
+            printf("\n\nDeseja realizar outra conversao? (1. SIM / 0. NAO)\n\nResposta: ");
+            scanf("%d", &answer);
+        } while (answer != 0 && answer != 1);
+
+    } while (answer != 0);
+
 }
 
 int isValidDigit(int digit, int base) {
