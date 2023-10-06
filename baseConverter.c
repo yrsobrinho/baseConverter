@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <math.h>
+
+int isValidDigit(int digit, int base);
+
+int isValidNumber(int number, int base);
 
 void binaryToOctal(int num);
 
@@ -35,7 +38,11 @@ int main() {
     } while (selectBase < 1 || selectBase > 4);
 
     printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
-    scanf("%d", &inputNum);
+
+    do {
+        scanf("%d", &inputNum);
+        printf("\nPor favor, insira um numero valido para a base selecionada.\n\nResposta: ");
+    } while (!isValidNumber(inputNum, selectBase));
 
     switch (selectBase) {
         case 1:
@@ -48,7 +55,6 @@ int main() {
                 printf("Resposta: ");
                 scanf("%d", &selectConversion);
             } while (selectConversion < 1 || selectConversion > 3);
-
 
             switch (selectConversion) {
                 case 1:
@@ -173,6 +179,32 @@ int main() {
         default:
             printf("Operacao invalida.");
     }
+}
+
+int isValidDigit(int digit, int base) {
+
+    if (base == 1) {
+        return digit == 0 || digit == 1;
+    } else if (base == 2) {
+        return digit >= 0 && digit <= 7;
+    } else if (base == 3) {
+        return digit >= 0 && digit <= 9;
+    } else if (base == 4) {
+        return (digit >= 0 && digit <= 9) || (digit >= 10 && digit <= 15);
+    } else {
+        return 0;
+    }
+}
+
+int isValidNumber(int number, int base) {
+    while (number > 0) {
+        int digit = number % 10;
+        if (!isValidDigit(digit, base)) {
+            return 0;
+        }
+        number /= 10;
+    }
+    return 1;
 }
 
 void binaryToOctal(int num) {
