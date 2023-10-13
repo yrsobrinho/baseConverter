@@ -16,6 +16,12 @@ void binaryToDecimal(int num);
 
 void binaryToHexadecimal(int num);
 
+void octalToBinary(int num);
+
+void octalToDecimal(int num);
+
+void octalToHexadecimal(int num);
+
 void decimalToBinary(int num);
 
 void decimalToOctal(int num);
@@ -107,12 +113,18 @@ int main() {
                 switch (selectConversion) {
                     case 1:
                         printf("\nConversao selecionada: Octal para binario\n");
+                        printf("O numero %d corresponde em binario a ", inputNum);
+                        octalToBinary(inputNum);
                         break;
                     case 2:
                         printf("\nConversao selecionada: Octal para decimal\n");
+                        printf("O numero %d corresponde em decimal a ", inputNum);
+                        octalToDecimal(inputNum);
                         break;
                     case 3:
                         printf("\nConversao selecionada: Octal para hexadecimal\n");
+                        printf("O numero %d corresponde em hexadecimal a ", inputNum);
+                        octalToHexadecimal(inputNum);
                         break;
                     default:
                         printf("Operacao invalida.");
@@ -301,6 +313,73 @@ void binaryToHexadecimal(int num) {
             hexDigit += binaryDigit * weight;
             num /= 10;
             weight *= 2;
+        }
+        hexadecimalNum[j] = hexDigit;
+        j++;
+    }
+    for (int k = j - 1; k >= 0; k--) {
+        decimalToHexadecimal(hexadecimalNum[k]);
+    }
+}
+
+void octalToDecimal(int num) {
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    int decimalNum = 0;
+
+    int i = 1, moduleOfTen;
+    while (num > 0) {
+        moduleOfTen = num % 10;
+        decimalNum += moduleOfTen * i;
+        num /= 10;
+        i *= 8;
+
+    }
+    printf("%d", decimalNum);
+}
+
+void octalToBinary(int num) {
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    int binaryNum[100], octalDigit, weight, j = 0, i, k;
+
+    while (num > 0) {
+        weight = 1;
+        for (i = 0; i < 3; i++) {
+            octalDigit = num % 10;
+            binaryNum[j] += octalDigit * weight;
+            num /= 10;
+            weight *= 8;
+        }
+        j++;
+    }
+    for (k = j - 1; k >= 0; k--) {
+        decimalToBinary(binaryNum[k]);
+    }
+}
+
+void octalToHexadecimal(int num) {
+    if (num == 0) {
+        printf("0");
+        return;
+    }
+
+    int hexadecimalNum[100], octalDigit, weight, j = 0;
+
+    while (num > 0) {
+        weight = 1;
+        int hexDigit = 0;
+        for (int i = 0; i < 4; i++) {
+            octalDigit = num % 10;
+            hexDigit += octalDigit * weight;
+            num /= 10;
+            weight *= 8;
         }
         hexadecimalNum[j] = hexDigit;
         j++;
