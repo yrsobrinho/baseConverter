@@ -6,6 +6,10 @@ int isValidDigit(int digit, int base);
 
 int isValidNumber(int number, int base);
 
+int isHexaDigit(char digit);
+
+int isValidHexadecimal(char *hexaNum);
+
 void binaryToOctal(int num);
 
 void binaryToDecimal(int num);
@@ -20,6 +24,7 @@ void decimalToHexadecimal(int num);
 
 int main() {
     int selectConversion, selectBase, inputNum, answer = 1;
+    char inputHexa[100];
 
     do {
         printf("\n********************************\n");
@@ -37,10 +42,19 @@ int main() {
             scanf("%d", &selectBase);
         } while (selectBase < 1 || selectBase > 4);
 
-        do {
-            printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
-            scanf("%d", &inputNum);
-        } while (!isValidNumber(inputNum, selectBase));
+        if (selectBase != 4) {
+            do {
+                printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
+                scanf("%d", &inputNum);
+
+            } while (!isValidNumber(inputNum, selectBase));
+
+        } else {
+            do {
+                printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
+                scanf("%s", inputHexa);
+            } while (!isValidHexadecimal(inputHexa));
+        }
 
         switch (selectBase) {
             case 1:
@@ -195,8 +209,6 @@ int isValidDigit(int digit, int base) {
         return digit >= 0 && digit <= 7;
     } else if (base == 3) {
         return digit >= 0 && digit <= 9;
-    } else if (base == 4) {
-        return (digit >= 0 && digit <= 9) || (digit >= 10 && digit <= 15);
     } else {
         return 0;
     }
@@ -209,6 +221,24 @@ int isValidNumber(int number, int base) {
             return 0;
         }
         number /= 10;
+    }
+    return 1;
+}
+
+int isHexaDigit(char digit) {
+    return (digit >= '0' && digit <= '9') || (digit >= 'A' && digit <= 'F') || (digit >= 'a' && digit <= 'f');
+}
+
+int isValidHexadecimal(char *hexaNum) {
+
+    if (hexaNum == NULL || hexaNum[0] == '\0') {
+        return 0;
+    }
+
+    for (int i = 0; hexaNum[i] != '\0'; i++) {
+        if (!isHexaDigit(hexaNum[i])) {
+            return 0;
+        }
     }
     return 1;
 }
