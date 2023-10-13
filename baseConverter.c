@@ -28,6 +28,12 @@ void decimalToOctal(int num);
 
 void decimalToHexadecimal(int num);
 
+void hexadecimalToBinary(char hexaNum[]);
+
+void hexadecimalToOctal(char hexaNum[]);
+
+void hexadecimalToDecimal(char hexaNum[]);
+
 int main() {
     int selectConversion, selectBase, inputNum, answer = 1;
     char inputHexa[100];
@@ -184,14 +190,20 @@ int main() {
                 switch (selectConversion) {
                     case 1:
                         printf("\nConversao selecionada: Hexadecimal para binario\n");
+                        printf("O numero %s corresponde em binario a ", inputHexa);
+                        hexadecimalToBinary(inputHexa);
                         break;
 
                     case 2:
                         printf("\nConversao selecionada: Hexadecimal para octal\n");
+                        printf("O numero %s corresponde em octal a ", inputHexa);
+                        hexadecimalToOctal(inputHexa);
                         break;
 
                     case 3:
                         printf("\nConversao selecionada: Hexadecimal para decimal\n");
+                        printf("O numero %s corresponde em decimal a ", inputHexa);
+                        hexadecimalToDecimal(inputHexa);
                         break;
 
                     default:
@@ -336,7 +348,6 @@ void octalToDecimal(int num) {
         decimalNum += moduleOfTen * i;
         num /= 10;
         i *= 8;
-
     }
     printf("%d", decimalNum);
 }
@@ -462,3 +473,70 @@ void decimalToHexadecimal(int num) {
     }
 }
 
+void hexadecimalToBinary(char hexaNum[]) {
+    if (hexaNum[0] == '0') {
+        printf("0");
+    }
+
+    int binaryNum[100];
+    int hexaDigit, j = 0, i, k;
+
+    for (i = strlen(hexaNum) - 1; i >= 0; i--) {
+        char digit = hexaNum[i];
+
+        if (digit >= '0' && digit <= '9') {
+            hexaDigit = digit - '0';
+        } else if (digit >= 'A' && digit <= 'F') {
+            hexaDigit = digit - 'A' + 10;
+        }
+
+        for (k = 0; k < 4; k++) {
+            binaryNum[j++] = hexaDigit % 2;
+            hexaDigit /= 2;
+        }
+        j++;
+    }
+
+    for (k = j - 1; k >= 0; k--) {
+        printf("%d", binaryNum[k]);
+    }
+    printf("\n");
+}
+
+void hexadecimalToOctal(char hexaNum[]) {
+    int decimalNum = 0, i, weight = 1;
+
+    for (i = strlen(hexaNum) - 1; i >= 0;i-- ) {
+        char digit = hexaNum[i];
+
+        if (digit >= '0' && digit <= '9') {
+            decimalNum += (digit - '0') * weight;
+        } else if (digit >= 'A' && digit <= 'F') {
+            decimalNum += (digit - 'A' + 10) * weight;
+        }
+        weight *= 16;
+    }
+
+    decimalToOctal(decimalNum);
+}
+
+void hexadecimalToDecimal(char hexaNum[]) {
+    if (hexaNum[0] == '0') {
+        printf("0");
+    }
+
+    int decimalNum = 0, i, weight = 1;
+
+    for (i = strlen(hexaNum) - 1; i >= 0; i--) {
+        char digit = hexaNum[i];
+
+        if (digit >= '0' && digit <= '9') {
+            decimalNum += (digit - '0') * weight;
+        } else if (digit >= 'A' && digit <= 'F') {
+            decimalNum += (digit - 'A' + 10) * weight;
+        }
+        weight *= 16;
+    }
+
+    printf("%d\n", decimalNum);
+}
