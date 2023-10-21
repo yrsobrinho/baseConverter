@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
+
+// SISTEMA OPERACIONAL: Windows & COMPILADOR: MinGW
 
 int isValidDigit(int digit, int base);
 
@@ -34,11 +37,14 @@ void hexadecimalToOctal(char hexaNum[]);
 
 void hexadecimalToDecimal(char hexaNum[]);
 
+void clearScreen();
+
 int main() {
     int selectConversion, selectBase, inputNum, answer = 1;
     char inputHexa[100];
 
     do {
+        clearScreen();
         printf("\n********************************\n");
         printf("*      CONVERSAO DE BASES      *\n");
         printf("********************************\n\n");
@@ -65,6 +71,7 @@ int main() {
             do {
                 printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
                 scanf("%s", inputHexa);
+                printf("Valor digitado: %s\n", inputHexa);
             } while (!isValidHexadecimal(inputHexa));
         }
 
@@ -82,19 +89,19 @@ int main() {
 
                 switch (selectConversion) {
                     case 1:
-                        printf("\nConversao selecionada: Binario para octal\n");
+                        printf("\nConversao selecionada: Binario para octal\n\n");
                         printf("O numero %d corresponde em octal a ", inputNum);
                         binaryToOctal(inputNum);
 
                         break;
                     case 2:
-                        printf("\nConversao selecionada: Binario para decimal\n");
+                        printf("\nConversao selecionada: Binario para decimal\n\n");
                         printf("O numero %d corresponde em decimal a ", inputNum);
                         binaryToDecimal(inputNum);
 
                         break;
                     case 3:
-                        printf("\nConversao selecionada: Binario para hexadecimal\n");
+                        printf("\nConversao selecionada: Binario para hexadecimal\n\n");
                         printf("O numero %d corresponde em hexadecimal a ", inputNum);
                         binaryToHexadecimal(inputNum);
 
@@ -118,17 +125,17 @@ int main() {
 
                 switch (selectConversion) {
                     case 1:
-                        printf("\nConversao selecionada: Octal para binario\n");
+                        printf("\nConversao selecionada: Octal para binario\n\n");
                         printf("O numero %d corresponde em binario a ", inputNum);
                         octalToBinary(inputNum);
                         break;
                     case 2:
-                        printf("\nConversao selecionada: Octal para decimal\n");
+                        printf("\nConversao selecionada: Octal para decimal\n\n");
                         printf("O numero %d corresponde em decimal a ", inputNum);
                         octalToDecimal(inputNum);
                         break;
                     case 3:
-                        printf("\nConversao selecionada: Octal para hexadecimal\n");
+                        printf("\nConversao selecionada: Octal para hexadecimal\n\n");
                         printf("O numero %d corresponde em hexadecimal a ", inputNum);
                         octalToHexadecimal(inputNum);
                         break;
@@ -158,14 +165,14 @@ int main() {
                         break;
 
                     case 2:
-                        printf("\nConversao selecionada: Decimal para octal\n");
+                        printf("\nConversao selecionada: Decimal para octal\n\n");
                         printf("O numero %d corresponde em octal a ", inputNum);
                         decimalToOctal(inputNum);
 
                         break;
 
                     case 3:
-                        printf("\nConversao selecionada: Decimal para hexadecimal\n");
+                        printf("\nConversao selecionada: Decimal para hexadecimal\n\n");
                         printf("O numero %d corresponde em hexadecimal a ", inputNum);
                         decimalToHexadecimal(inputNum);
 
@@ -189,19 +196,19 @@ int main() {
 
                 switch (selectConversion) {
                     case 1:
-                        printf("\nConversao selecionada: Hexadecimal para binario\n");
+                        printf("\nConversao selecionada: Hexadecimal para binario\n\n");
                         printf("O numero %s corresponde em binario a ", inputHexa);
                         hexadecimalToBinary(inputHexa);
                         break;
 
                     case 2:
-                        printf("\nConversao selecionada: Hexadecimal para octal\n");
+                        printf("\nConversao selecionada: Hexadecimal para octal\n\n");
                         printf("O numero %s corresponde em octal a ", inputHexa);
                         hexadecimalToOctal(inputHexa);
                         break;
 
                     case 3:
-                        printf("\nConversao selecionada: Hexadecimal para decimal\n");
+                        printf("\nConversao selecionada: Hexadecimal para decimal\n\n");
                         printf("O numero %s corresponde em decimal a ", inputHexa);
                         hexadecimalToDecimal(inputHexa);
                         break;
@@ -222,7 +229,7 @@ int main() {
         } while (answer != 0 && answer != 1);
 
     } while (answer != 0);
-
+ 
 }
 
 int isValidDigit(int digit, int base) {
@@ -494,7 +501,6 @@ void hexadecimalToBinary(char hexaNum[]) {
             binaryNum[j++] = hexaDigit % 2;
             hexaDigit /= 2;
         }
-        j++;
     }
 
     for (k = j - 1; k >= 0; k--) {
@@ -539,4 +545,8 @@ void hexadecimalToDecimal(char hexaNum[]) {
     }
 
     printf("%d\n", decimalNum);
+}
+
+void clearScreen() {
+    system("cls");
 }
