@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <windows.h>
 
+
 // SISTEMA OPERACIONAL: Windows & COMPILADOR: MinGW
 
 int isValidDigit(int digit, int base);
@@ -55,23 +56,24 @@ int main() {
         printf("4. Hexadecimal\n\n");
 
         do {
-            printf("1%c PASSO: Qual a base atual do numero que deseja converter?\n\n", 167);
-            printf("Resposta: ");
+            printf("1%c PASSO: Qual a base atual do numero que deseja converter?\n\nResposta: ", 167);
             scanf("%d", &selectBase);
         } while (selectBase < 1 || selectBase > 4);
 
         if (selectBase != 4) {
             do {
                 printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
-                scanf("%d", &inputNum);
-
-            } while (!isValidNumber(inputNum, selectBase));
-
+                if (scanf("%d", &inputNum) != 1 || !isValidNumber(inputNum, selectBase)) {
+                    printf("\nATENCAO: Entrada invalida. Insira um numero valido.\n");
+                    int c;
+                    while ((c = getchar()) != '\n' && c != EOF);
+                } else
+                    break;
+            } while (1);;
         } else {
             do {
                 printf("\n2%c PASSO: Qual o numero que deseja converter na base selecionada acima?\n\nResposta: ", 167);
                 scanf("%s", inputHexa);
-                printf("Valor digitado: %s\n", inputHexa);
             } while (!isValidHexadecimal(inputHexa));
         }
 
@@ -228,8 +230,8 @@ int main() {
             scanf("%d", &answer);
         } while (answer != 0 && answer != 1);
 
-    } while (answer != 0);
- 
+    } while (answer == 1);
+
 }
 
 int isValidDigit(int digit, int base) {
@@ -249,8 +251,6 @@ int isValidNumber(int number, int base) {
     while (number > 0) {
         int digit = number % 10;
         if (!isValidDigit(digit, base)) {
-            printf("ATENCAO: O numero inserido possui elementos invalidos para a base selecionada. Por favor, insira um numero valido.\n");
-            fflush(stdin);
             return 0;
         }
         number /= 10;
@@ -270,7 +270,7 @@ int isValidHexadecimal(char *hexaNum) {
 
     for (int i = 0; hexaNum[i] != '\0'; i++) {
         if (!isHexaDigit(hexaNum[i])) {
-            printf("ATENCAO: O numero inserido possui elementos invalidos para a base selecionada. Por favor, insira um numero valido.\n");
+            printf("\nATENCAO: O numero inserido possui elementos invalidos para a base selecionada. Por favor, insira um numero valido.\n");
             fflush(stdin);
             return 0;
         }
@@ -516,7 +516,7 @@ void hexadecimalToBinary(char hexaNum[]) {
 void hexadecimalToOctal(char hexaNum[]) {
     int decimalNum = 0, i, weight = 1;
 
-    for (i = strlen(hexaNum) - 1; i >= 0;i-- ) {
+    for (i = strlen(hexaNum) - 1; i >= 0; i--) {
         char digit = hexaNum[i];
 
         if (digit >= '0' && digit <= '9') {
