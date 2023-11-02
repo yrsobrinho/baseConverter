@@ -249,6 +249,8 @@ int isValidNumber(int number, int base) {
     while (number > 0) {
         int digit = number % 10;
         if (!isValidDigit(digit, base)) {
+            printf("ATENCAO: O numero inserido possui elementos invalidos para a base selecionada. Por favor, insira um numero valido.\n");
+            fflush(stdin);
             return 0;
         }
         number /= 10;
@@ -268,6 +270,8 @@ int isValidHexadecimal(char *hexaNum) {
 
     for (int i = 0; hexaNum[i] != '\0'; i++) {
         if (!isHexaDigit(hexaNum[i])) {
+            printf("ATENCAO: O numero inserido possui elementos invalidos para a base selecionada. Por favor, insira um numero valido.\n");
+            fflush(stdin);
             return 0;
         }
     }
